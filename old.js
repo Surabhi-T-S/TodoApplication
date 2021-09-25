@@ -11,6 +11,7 @@ function addTask(){
     let newDiv= document.createElement("div");
     if(inputs[0].value!="")
     {
+     
      newDiv.innerHTML= inputs[0].value;
     }
     else{
