@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <style>
+        *{
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+        body{
+            margin:none;
+        }
+        .form-container{
+            width:40vw;
+            border:1px solid transparent;
+            border-radius:1vw;
+            background-color: #7FC6A4 ;
+            padding:1%;
+            display:inline-block;
+        }
+        .form__input{
+            display:block;
+            width:90%;
+            padding:1%;
+            margin:2%;
+            border:1px solid transparent;
+            border-radius:10px;
+        }
+        .form__submit,.form__reset{
+            background-color:#F96E46;
+            color:white;
+            border:1px solid transparent;
+            border-radius:10px;
+            display:inline-block;
+            width:40%;
+            padding:1%;
+            margin:2% 5% 2% 2%;
+          }
+        .todo-list{
+            width:57vw;
+            float:right;
+            border:1px solid transparent;
+            border-radius:10px;
+            background-color:#F96E46;
+            padding:0.5%;
+            margin:auto;
+           /* display:inline-block;
+            position:relative;
+            top:-155px;
+            left:10px;*/
+        }
+        .todo-container{
+            width:90%;
+            display:flex;
+            justify-content: space-between;
+            justify-items: baseline;
+        }
+        .todo-container__task{
+            margin-bottom:1%;
+            margin-left:1.5%;
+            background-color:white;
+            width:80%;
+            padding:1%;
+            border:1px solid transparent;
+            border-radius:10px;
+        }
+        .fa{
+            color:white;
+        }
+    </style>
+    <script src="https://use.fontawesome.com/2024f522b1.js"></script>
+    </head>
+    <body>
+       <div class="form-container">
+         <div class="form">
+             <input class="form__input" name="taskTitle" type="text" placeholder="Enter your task" required>
+             <input class="form__input" name="taskDate" type="date" placeholder="Date">
+             <select class="form__input" name="taskStatus" placeholder="Enter Status">
+                 <option value="Not Started">Not started</option>
+                 <option value="In-progress">In-progress</option>
+                 <option value="Completed">Completed</option>
+             </select>
+             <input class="form__submit" name="save" type="submit" value="Save">
+             <input class="form__reset" name="reset" type="reset" value="Reset">
+            </div>
+       </div>
+       <div class="todo-list">
+           <h3 style="color:white;">Todos</h3>
+       </div>
+       <script src="old.js"></script>
+    </body>
+
+</html>
