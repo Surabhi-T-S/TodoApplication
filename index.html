@@ -48,15 +48,19 @@
             top:-155px;
             left:10px;*/
         }
-        .todo-container{
+        .main-container{
             width:90%;
             display:flex;
             justify-content: space-between;
             justify-items: baseline;
             color:white;
-            border-bottom:1px solid white;
+            padding:5px;
+            margin:5px;
         }
-        .todo-container__task{
+        .todo-container{
+            width:60%;
+        }
+        /*.todo-container__task{
             margin-bottom:1%;
             margin-left:1.5%;
             background-color:white;
@@ -64,7 +68,7 @@
             padding:1%;
             border:1px solid transparent;
             border-radius:10px;
-        }
+        }*/
         .fa{
             color:white;
         }
@@ -82,7 +86,7 @@
                  <option value="Completed">Completed</option>
              </select>
              <input class="form__submit" name="save" type="submit" value="Save">
-             <input class="form__reset" name="reset" type="reset" value="Reset">
+             <input class="form__reset" onclick="reset();" name="reset" type="reset" value="Reset">
             </div>
        </div>
        <div class="todo-list">

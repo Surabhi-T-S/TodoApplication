@@ -1,27 +1,37 @@
 let inputs=document.getElementsByClassName("form__input"),
     tasksView=document.getElementsByClassName("todo-list");
 let count=0,currentOperation=0;let updateCount=0;
+localStorage.clear();
 document.getElementsByClassName("form__submit")[0].addEventListener("click",addTask);
 function addTask()
 {  if(currentOperation==0)  // if currentOperation is 0, new task is added
   {
     console.log("start");
-    let editIcon;
-    let todoContainer,jsonObject;
+    let editIcon,deleteIcon;
+    let todoContainer,jsonObject,mainContainer;
     jsonObject={title: inputs[0].value,date:inputs[1].value,status:inputs[2].value};//create a JSON object for storing it in localStorage
     localStorage.setItem("task["+count+"]",JSON.stringify(jsonObject));
-    
+    mainContainer=document.createElement("div");
+    mainContainer.dataset.dataId=count;
+    mainContainer.className="main-container";
     todoContainer=document.createElement("div");// todoContainer is container for task display,delete and edit icons
     todoContainer.className="todo-container";
-    todoContainer.dataset.dataId=count;
+    
     editIcon=document.createElement("i");
     editIcon.className="fa fa-pencil-square fa-lg";
     editIcon.ariaHidden="true";
-    todoContainer.innerHTML=jsonObject.title+" " + jsonObject.date+" " +jsonObject.status;
-    todoContainer.appendChild(editIcon);  
-    tasksView[0].appendChild(todoContainer);// tasksView is container for all tasks
+    deleteIcon=document.createElement("i");
+    deleteIcon.className="fa fa fa-trash-o fa-lg";
+    deleteIcon.ariaHidden="true";
+    todoContainer.innerHTML=jsonObject.title+", " + jsonObject.date+", " +jsonObject.status;
+    /*todoContainer.appendChild(editIcon);  
+    todoContainer.appendChild(deleteIcon);*/
+    mainContainer.appendChild(todoContainer);
+    mainContainer.appendChild(editIcon);
+    mainContainer.appendChild(deleteIcon);
+    tasksView[0].appendChild(mainContainer);// tasksView is container for all tasks
     editIcon.addEventListener("click",editThis);
-    
+    deleteIcon.addEventListener("click",deleteThis);
     count++; //to get index for future newly added tasks
   }
 }
@@ -43,9 +53,24 @@ function editThis(event){
     console.log(currentItemId + " from updateThis");
     updatedObject={title: inputs[0].value,date:inputs[1].value,status:inputs[2].value};// corresponding local storage is updated
     localStorage.setItem("task["+currentItemId+"]",JSON.stringify(updatedObject));
-    document.getElementsByClassName("todo-container")[currentItemId].firstChild.nodeValue=updatedObject.title +" "+ updatedObject.date+" " +updatedObject.status;
-    console.log(document.getElementsByClassName("todo-container")[currentItemId].firstChild.innerHTML);
+    //document.getElementsByClassName("todo-container")[currentItemId].firstChild.nodeValue=updatedObject.title +" "+ updatedObject.date+" " +updatedObject.status;
+    document.getElementsByClassName("main-container")[currentItemId].firstChild.innerHTML=updatedObject.title+", "+updatedObject.date+", " +updatedObject.status;
+    console.log(document.getElementsByClassName("main-container")[currentItemId].firstChild.innerHTML);
     setTimeout(function(){currentOperation=0;},20000);
     }
   });
+}
+
+function deleteThis(event)
+{
+  let currentItemId=event.target.parentNode.dataset.dataId;
+  document.getElementsByClassName("main-container")[currentItemId].style.display="none";
+  localStorage.removeItem("task["+currentItemId+"]");
+}
+
+function reset(){
+ 
+  for(let i=0;i<3;i++){
+    inputs[i].value="";
+  }
 }
