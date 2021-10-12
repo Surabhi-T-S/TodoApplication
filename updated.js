@@ -5,6 +5,7 @@ localStorage.clear();
 document.getElementsByClassName("form__submit")[0].addEventListener("click",addTask);
 function addTask()
 {  if(currentOperation==0)  // if currentOperation is 0, new task is added
+   // if currentOperation is 1,existing task will be updated
   {
     console.log("start");
     let editIcon,deleteIcon;
@@ -14,7 +15,7 @@ function addTask()
     mainContainer=document.createElement("div");
     mainContainer.dataset.dataId=count;
     mainContainer.className="main-container";
-    todoContainer=document.createElement("div");// todoContainer is container for task display,delete and edit icons
+    todoContainer=document.createElement("div");
     todoContainer.className="todo-container";
     
     editIcon=document.createElement("i");
@@ -24,15 +25,13 @@ function addTask()
     deleteIcon.className="fa fa fa-trash-o fa-lg";
     deleteIcon.ariaHidden="true";
     todoContainer.innerHTML=jsonObject.title+", " + jsonObject.date+", " +jsonObject.status;
-    /*todoContainer.appendChild(editIcon);  
-    todoContainer.appendChild(deleteIcon);*/
     mainContainer.appendChild(todoContainer);
     mainContainer.appendChild(editIcon);
-    mainContainer.appendChild(deleteIcon);
+    mainContainer.appendChild(deleteIcon);//mainContainer has task details,editIcon,deleteIcon
     tasksView[0].appendChild(mainContainer);// tasksView is container for all tasks
     editIcon.addEventListener("click",editThis);
     deleteIcon.addEventListener("click",deleteThis);
-    count++; //to get index for future newly added tasks
+    count++; //to get index for  tasks
   }
 }
 function editThis(event){
@@ -53,7 +52,7 @@ function editThis(event){
     console.log(currentItemId + " from updateThis");
     updatedObject={title: inputs[0].value,date:inputs[1].value,status:inputs[2].value};// corresponding local storage is updated
     localStorage.setItem("task["+currentItemId+"]",JSON.stringify(updatedObject));
-    //document.getElementsByClassName("todo-container")[currentItemId].firstChild.nodeValue=updatedObject.title +" "+ updatedObject.date+" " +updatedObject.status;
+    
     document.getElementsByClassName("main-container")[currentItemId].firstChild.innerHTML=updatedObject.title+", "+updatedObject.date+", " +updatedObject.status;
     console.log(document.getElementsByClassName("main-container")[currentItemId].firstChild.innerHTML);
     setTimeout(function(){currentOperation=0;},20000);
